@@ -163,6 +163,9 @@ vector<point> directions(4);
 vector<vector<char> > field(N, vector<char> (N, '?'));
 vector<vector<bool> > visited(N, vector<bool> (N));
 
+int NEW_X;
+int NEW_Y;
+
 vector<pair<int, int> > find_ver(int x, int y, int dir, char name) {
   set<pair<int, pair<int, pair<int, int> > > > q;
 
@@ -184,6 +187,8 @@ vector<pair<int, int> > find_ver(int x, int y, int dir, char name) {
     //cout << directions[now.second.second.second].x << ' '<< directions[now.second.second.second].y << endl;
     if (field[now.second.first][now.second.second.first] == name && !visited[now.second.first][now.second.second.first]) {
       ans = {now.second.second.second, {now.second.first, now.second.second.first}};
+      NEW_X = now.second.first;
+      NEW_Y = now.second.second.first;
       break;
     }
     //cout << "END" << endl;
@@ -228,11 +233,14 @@ vector<pair<int, int> > find_ver(int x, int y, int dir, char name) {
     //cout << ans.first << endl;
     auto now = prev[ans];
     //cout << now.first << ' ' << now.second.first <<  ' ' << now.second.second << endl;
+    if (now.first == -1) {
+      break;
+    }
     if (ans.first != now.first) {
       if (new_dir(now.first, 1) == ans.first) {
-        answer.push_back({2, 0});
-      } else {
         answer.push_back({2, 1});
+      } else {
+        answer.push_back({2, 0});
       }
     } else {
       answer.push_back({1, 1});
@@ -471,6 +479,9 @@ void run() {
           cin >> x;
         }
       }
+      x = NEW_X;
+      y = NEW_Y;
+      visited[x][y] = true;
       counter_of_free_space--;
     }
 
