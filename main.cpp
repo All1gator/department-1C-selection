@@ -359,7 +359,7 @@ void run() {
               }
             }
             //cout << i << ' ' << j << "!!!" << endl;
-            if (yes) {
+            if (!yes) {
               checker[i - x + k][j - y + k] = '?';
             }
           }
@@ -387,7 +387,7 @@ void run() {
                 }
               }
             }
-            if (yes) {
+            if (!yes) {
               checker[i - x + k][j - y + k] = '?';
             }
           }
@@ -397,6 +397,7 @@ void run() {
       for (int i = 0; i < 2 * k + 1; ++i) {
         for (int j = 0; j < 2 * k + 1; ++j) {
           if (field[x + i - k][y + j - k] == '?') {
+            //cout << checker[i][j];
             if (checker[i][j] == '#') {
               field[x + i - k][y + j - k] = '#';
               counter_of_free_questions--;
@@ -408,9 +409,15 @@ void run() {
             }
           }
         }
+        //cout << endl;
       }
       //cout << "LOOK" << endl;
-
+      for (int i = x - 2; i < x + 2; i++) {
+        for (int j = y - 2; j < y + 2; j++) {
+          //cout << field[i][j];
+        }
+        //cout << endl;
+      }
     } else { // брутфорсимся
       int cnt = 0;
       point now = point(x, y);
